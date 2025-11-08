@@ -1,0 +1,402 @@
+body {
+    /* gradiente principal (aproximação da imagem) */
+    background-image:
+        radial-gradient(1200px 600px at 10% 10%, rgba(40,60,70,0.10), transparent 20%),
+        linear-gradient(180deg, rgba(34,40,44,0.95) 0%, rgba(18,22,25,0.95) 45%, rgba(7,9,11,0.99) 100%);
+    background-color: #0b0d0f;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Added to prevent background from scrolling */
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+/* camada de "grain" (textura) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: 0.12;
+    z-index: 1;
+}
+input {
+    width: 400px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+button {
+    width: 300px; /* Added fixed width */
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(1, 115, 22, 1);
+    color: white;
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center; /* Ensures text is centered */
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+.botao-especial {
+    background: 	#ff8000; /* Orange color for special button */
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+.botao-especial:hover {
+    background: rgba(255, 128, 0, 0.8);
+}
+.botao-sorteio{
+    width: 300px;
+    height: 60px;
+    background-color: #05638e;
+    font-size: 2rem;
+    font-family: "Karla", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(217, 212, 241);
+}
+.botao-sorteio:hover{
+    background-color: #0a7190;   
+}
+.botao-deletar {
+    background: rgb(180, 32, 32);
+    min-width: 120px;
+}
+
+.botao-deletar:hover {
+    background: rgb(200, 40, 40);
+}/* garante que o conteúdo fique acima da textura */
+.title, .main-title, #filme-sorteado, #lista-filmes, button, input {
+    position: relative;
+    z-index: 2;
+}
+.title{
+    text-align: center;
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.6);
+}
+.main-title{
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: 	rgba(255, 255, 255, 1);
+    letter-spacing: 2px;
+    font-size: 4rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 1000px;
+    min-height: calc(100vh - 650px); /* Subtract header height and margins */
+}
+
+.div-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0; /* Changed from 20px 0 */
+    width: 200px; /* Match button width */
+}
+
+.div-listaFilmes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 0px;
+    margin: 0; /* Changed from 20px auto */
+    width: 400px; /* Match input width */
+    height: 100%; /* Take full height of parent */
+}
+
+#lista-filmes {
+    transition: opacity 0.3s ease;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.6);  /* Increased opacity from 0.4 to 0.6 */
+    text-align: left;  /* Changed from center to left */
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-height: none; /* Remove max-height limitation */
+    height: 100%; /* Take full height */
+    overflow-y: auto; /* Add scroll if content overflows */
+    padding-right: 20px; /* Add space for scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(1, 115, 22, 0.5) transparent;
+}
+
+/* Styling the scrollbar for webkit browsers */
+#lista-filmes::-webkit-scrollbar {
+    width: 8px;
+}
+
+#lista-filmes::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#lista-filmes::-webkit-scrollbar-thumb {
+    background-color: rgba(1, 115, 22, 0.5);
+    border-radius: 4px;
+}
+
+#lista-filmes::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(1, 115, 22, 0.8);
+}
+
+#lista-filmes li {
+    margin: 12px 0;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    border-left: 3px solid rgba(1, 115, 22, 0.5);
+}
+
+#lista-filmes li:hover {
+    transform: translateX(5px);
+    color: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.07);
+    border-left: 3px solid rgba(1, 115, 22, 1);
+}
+.botoes-principais {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100px;
+    width: 100%;
+    justify-content: center;
+}
+.div-input-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.div-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0; /* Changed from 20px 0 */
+    width: 200px; /* Match button width */
+}
+
+.list-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#list-selector {
+    padding: 8px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    min-width: 100px;
+}
+
+/* Add keyframes for floating animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* Update existing elements with animations */
+.main-title {
+    animation: float 3s ease-in-out infinite;
+}
+
+
+#filme-sorteado {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.lista-titulo {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#lista-filmes li {
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: calc(var(--item-index) * 0.1s);
+}
+.footer {
+    background-color: rgba(44, 52, 63, 0.9);
+    height: 80px;
+    width: 100%;
+    bottom: 0px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-footer {
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.texto-footer:hover {
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+@media screen and (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        padding: 0 20px;
+        gap: 20px;
+    }
+
+    .div-inputs {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .div-listaFilmes {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    input {
+        width: 65%;
+        max-width: 350px;
+    }
+
+    button {
+        width: auto;
+        min-width: 140px;
+        font-size: 0.8rem;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+        padding: 0 10px;
+    }
+
+    #lista-filmes {
+        column-count: 1;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .footer {
+        height: 8.1rem;
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .texto-footer {
+        font-size: 0.8rem;
+    }
+}
+
+/* For even smaller screens */
+@media screen and (max-width: 480px) {
+    .main-title {
+        font-size: 2rem;
+    }
+
+    button {
+        min-width: 110px;
+        padding: 8px 12px;
+    }
+}

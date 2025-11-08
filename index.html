@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmeszinhos🎬🎬</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="div-titulo">
+        <h2 class="title">Olá, e seja bem vindo ao</h2>
+        <h1 class="main-title">Filmeszinhos🎬🎬</h1>
+        <h3 id="filme-sorteado" class="main-title"></h3>
+    </div>
+    <div class="div-input-bar">
+        <button onclick="sortearFilme()" class="botao-sorteio">Sortear filme</button>
+        <input type="text" placeholder="Alguma sugestão pra hoje?" id="input-filme">
+    </div>
+    
+        
+        
+    <div class="botoes-principais">
+        <button onclick="adicionarFilme()">Adicionar filme</button>
+        <button onclick="removerFilme()">Remover último filme sorteado</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="div-inputs">
+            <button onclick="resetarLista()">Resetar Lista</button>
+            <button onclick="mostrarLista()" id="mostrar">Mostrar lista de filmes</button>   
+            <button onclick="retirarFilmeEspecifico()">Remover filme específico</button>
+            <button onclick="listaNova()" class="botao-especial">Criar uma lista nova</button>
+        </div>
+    </div>
+    <div class="div-listaFilmes">
+        <ul id="lista-filmes" style="opacity: 0;">
+            
+        </ul>
+    </div>
+    <div class="list-controls">
+        <select id="list-selector" onchange="trocarLista()"></select>
+        <button onclick="criarNovaLista()">Nova Lista</button>
+        <button onclick="apagarLista()" class="botao-deletar">Apagar Lista</button>
+    </div>
+    <footer class="footer">
+        <p class="texto-footer">Feito por Robson & Ana</p>
+    </footer>
+</body>
+</html>
